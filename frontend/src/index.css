@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #1b2040;
+  --color-muted: #586083;
+  --color-mist: #edf0f7;
+  --color-line: #d9deec;
+  --color-cobalt: #3340e8;
+  --color-cobalt-dark: #2530c0;
+  --color-cobalt-soft: #e3e6fd;
+  --color-signal: #ffc83d;
+  --color-danger: #c4303a;
+  --color-ok: #14804a;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-mist font-sans text-ink antialiased;
+  }
+  h1, h2, h3 { @apply font-display; }
+  :focus-visible {
+    outline: 3px solid var(--color-cobalt);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+@layer components {
+  .page { @apply mx-auto w-full max-w-6xl px-4 py-8 md:px-6 md:py-10; }
+
+  .panel { @apply rounded-3xl border border-line bg-white; }
+
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary { @apply bg-cobalt text-white hover:bg-cobalt-dark; }
+  .btn-quiet { @apply border border-line bg-white text-ink hover:border-ink; }
+  .btn-large { @apply px-7 py-3.5 text-base; }
+  .btn-text-danger { @apply cursor-pointer text-sm font-medium text-danger underline-offset-4 hover:underline; }
+
+  .label { @apply mb-1.5 block text-sm font-medium; }
+  .input {
+    @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-muted/70 focus:border-cobalt;
+  }
+
+  .alert-error { @apply rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-danger; }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.toast-in { animation: toast-in 0.2s ease-out; }
